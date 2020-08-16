@@ -58,11 +58,11 @@ class Analisador():
 	    self.wordcloud = fig
 
 
-	def cria_grafico_contagem_palavras(self):
+	def cria_grafico_contagem_palavras(self, num):
 		contagem = self.counts
 		contagem = sorted(contagem.items(), key = operator.itemgetter(1), reverse = True)
 
-		top_words = contagem[0:10] #deixar essa parametro do slice dinamico
+		top_words = contagem[0:num] 
 
 		x = [item[0] for item in top_words]
 		y = [item[1] for item in top_words]
@@ -77,8 +77,8 @@ class Analisador():
 
 	def cria_colunas(self):
 
-		self.dados["mes"] = [data.month for data in dados.Date]
-		self.dados["dia"] = [data.day for data in dados.Date]
+		self.dados["mes"] = [data.month for data in self.dados.Date]
+		self.dados["dia"] = [data.day for data in self.dados.Date]
 
 
 	def salva_info_meses(self):
@@ -109,14 +109,8 @@ class Analisador():
 
 
 		x = [dado[0] for dado in self.dados_mensais]
-		y1 = [dado[1]  for dado in self.self.dados_mensais]
+		y1 = [dado[1]  for dado in self.dados_mensais]
 		y2 = [dado[2]  for dado in self.dados_mensais]
-
-		fig = plt.figure()
-		df = pd.DataFrame(np.c_[y1,y2], index=x)
-		df.plot.bar()
-		plt.legend(["nao spam","spam"])
-		self.grafico_spam_mes_ambos = fig
 
 		fig = plt.figure()
 		ax = plt.bar(x,y1)
@@ -142,10 +136,7 @@ class Analisador():
 	def conta_palavras_mensal(self):
 
 		dados_mensais = self.dados_mensais
-
-		df_word_month = pd.DataFrame(columns = ["maximo de palavras", "minimo palavras","media palavras","mediana palavras","desvio padrao","variancia"])
-
-
+		df_word_month = pd.DataFrame()
 		x = [dado[0] for dado in dados_mensais]
 		df_word_month["maximo de palavras"] = [dado[3]  for dado in dados_mensais]
 		df_word_month["minimo palavras"] = [dado[4]  for dado in dados_mensais]
@@ -153,16 +144,28 @@ class Analisador():
 		df_word_month["mediana palavras"] = [dado[6]  for dado in dados_mensais]
 		df_word_month["desvio padrao"] = [dado[7]  for dado in dados_mensais]
 		df_word_month["variancia"] = [dado[8]  for dado in dados_mensais]
-
-		df_word_month = df_word_month.reindex(x)
+		df_word_month.index = x
 
 		self.df_palavras_mes = df_word_month
 
 
 	def conta_spam_dia(self):
 
+		self.contagem_dia = []
+
 		contagem_dia = [[dado[0],dado[10]] for dado in self.dados_mensais]
 
-		self.contagem_dia = contagem_dia
+		for i in range(len(contagem_dia)):
+			fig = plt.figure()
+			top_dias = contagem_dia[i][1].index[0:10]
+			total_msg = contagem_dia[i][1].values[0:10]
+			plt.bar(top_dias, total_msg)
+			plt.title(contagem_dia[i][0])
+			plt.xlabel("\n dia do mes")
+			plt.xticks(top_dias, rotation = 'vertical')
+			plt.ylabel("total de msg nao spam")
+
+
+			self.contagem_dia.append(fig)
 
 
