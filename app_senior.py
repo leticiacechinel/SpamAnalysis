@@ -6,7 +6,7 @@ from PIL import Image
 
 if __name__ == '__main__':
 
-	path = "/home/leticia/Documentos/PS/SENIOR/Desafio -Senior Labs - 2020/sms_senior.csv"
+	path = "sms_senior.csv"
 
 
 	analise = st.sidebar.selectbox("Selecione o que deseja visualizar", ["< selecionar analise >","questao 1 - analise exploratoria", "questao 2 - modelo preditivo"])

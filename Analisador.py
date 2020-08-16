@@ -7,7 +7,7 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import nltk
 import operator
 
-
+nltk.download('stopwords') 
 
 class Analisador():
 
