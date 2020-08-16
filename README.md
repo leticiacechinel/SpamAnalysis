@@ -2,9 +2,9 @@
 
 Execucao
 
-1 - aplicativo streamlit
+## 1 - aplicativo streamlit
 
-1.1 - com docker 
+### 1.1 - com docker (utilizacao recomendada)
 
 baixar o diretório completo
 
@@ -14,7 +14,7 @@ após montar, sudo docker run -p 8501:8501 seniorapp:latest
 
 Usar o network URL que aparecerá para abrir o aplicativo no seu browser
 
-1.2 - com ambiente conda
+### 1.2 - com ambiente conda
 
 baixar o diretório completo
 
@@ -24,7 +24,7 @@ conda env create -f senior.yml
 
 dentro do diretório no terminal, rodar o comando streamlit run app_senior.py
 
-2 -  Jupyter notebook
+## 2 -  Jupyter notebook
 
 Todas as analises tambem estao disponiveis em arquivos ipynb. 
 
