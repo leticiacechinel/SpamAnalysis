@@ -25,6 +25,15 @@ class Classificador():
 		le = LabelEncoder()
 		self.dados.IsSpam = le.fit_transform(self.dados.IsSpam)
 
+	def balanceia_df(self):
+
+		df_spam = self.dados.loc[self.dados.IsSpam==1]
+		df_nao_spam = self.dados.loc[self.dados.IsSpam==0]
+
+		df_nao_under = df_nao_spam.sample(len(df_spam))
+
+		self.dados = pd.concat([df_nao_under,df_spam], axis=0).sample(frac=1)
+
 
 	def treina_modelo(self, modelo_select):
 
